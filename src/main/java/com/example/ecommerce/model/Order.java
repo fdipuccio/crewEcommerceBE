@@ -1,7 +1,6 @@
 package com.example.ecommerce.model;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,9 +13,8 @@ public class Order {
     @ManyToOne
     private User user;
 
-    private String shippingAddress;
-    private BigDecimal totalAmount;
-    private LocalDateTime orderDate;
+    private Double total;
+    private LocalDateTime orderDate = LocalDateTime.now();
 
     // Getters and Setters
 }
