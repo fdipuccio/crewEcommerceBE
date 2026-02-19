@@ -1,7 +1,13 @@
+package com.example.ecommerce.controller;
+
+import com.example.ecommerce.dto.AuthRequest;
+import com.example.ecommerce.dto.AuthResponse;
+import com.example.ecommerce.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -9,15 +15,13 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody @Validated AuthRequest request) {
-        AuthResponse response = authService.login(request);
-        return ResponseEntity.ok(response);
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(@Valid @RequestBody AuthRequest request) {
+        return ResponseEntity.ok(authService.register(request));
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody @Validated AuthRequest request) {
-        User user = authService.register(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody AuthRequest request) {
+        return ResponseEntity.ok(authService.login(request));
     }
 }
