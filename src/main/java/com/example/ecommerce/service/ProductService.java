@@ -5,6 +5,7 @@ import com.example.ecommerce.model.Product;
 import com.example.ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,16 +15,23 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<ProductDto> getAllProducts() {
-        return productRepository.findAll().stream()  
-            .map(this::convertToDto)
-            .collect(Collectors.toList());
+        return productRepository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     public ProductDto getProductById(Long id) {
-        return convertToDto(productRepository.findById(id).orElse(null));
+        Product product = productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        return convertToDto(product);
     }
 
     private ProductDto convertToDto(Product product) {
-        // Convert Product to ProductDto
+        ProductDto dto = new ProductDto();
+        dto.setId(product.getId());
+        dto.setName(product.getName());
+        dto.setDescription(product.getDescription());
+        dto.setPrice(product.getPrice());
+        dto.setCategory(product.getCategory());
+        dto.setImageUrl(product.getImageUrl());
+        dto.setAvailability(product.getAvailability());
+        return dto;
     }
 }
