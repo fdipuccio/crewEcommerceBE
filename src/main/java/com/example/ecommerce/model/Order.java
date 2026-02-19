@@ -1,4 +1,7 @@
+package com.example.ecommerce.model;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -9,9 +12,10 @@ public class Order {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
+    private String shippingAddress;
+    private BigDecimal totalAmount;
     private LocalDateTime orderDate;
 
     // Getters and Setters
