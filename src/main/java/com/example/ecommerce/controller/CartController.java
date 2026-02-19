@@ -1,6 +1,10 @@
+package com.example.ecommerce.controller;
+
+import com.example.ecommerce.dto.CartDto;
+import com.example.ecommerce.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -10,14 +14,12 @@ public class CartController {
     private CartService cartService;
 
     @GetMapping
-    public List<CartItem> getCartItems(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return cartService.getCartItems(user);
+    public List<CartDto> getCartItems(Principal principal) {
+        return cartService.getCartItems(principal.getName());
     }
 
     @PostMapping
-    public ResponseEntity<CartItem> addToCart(@RequestBody CartItem cartItem) {
-        cartService.addToCart(cartItem);
-        return ResponseEntity.status(HttpStatus.CREATED).body(cartItem);
+    public void addToCart(@Valid @RequestBody CartDto cartDto) {
+        cartService.addToCart(cartDto);
     }
 }
