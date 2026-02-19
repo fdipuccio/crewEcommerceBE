@@ -3,7 +3,7 @@ package com.example.ecommerce.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cart_items")
+@Table(name = "cart")
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
