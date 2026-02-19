@@ -1,6 +1,7 @@
 package com.example.ecommerce.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -9,10 +10,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String email;
-
     private String password;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     // Getters and Setters
 }
